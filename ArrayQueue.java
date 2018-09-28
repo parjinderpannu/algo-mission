@@ -1,8 +1,10 @@
+import sun.tools.tree.ShiftRightExpression;
+
 public class ArrayQueue<T> implements QueueInterface<T> {
    private T[] queue; // circular array of queue entries and one unused location
    private int frontIndex;
    private int backIndex;
-   private static final int DEFAULT_INITIAL_CAPACITY = 5;
+   private static final int DEFAULT_INITIAL_CAPACITY = 50;
 
    public ArrayQueue() {
       this(DEFAULT_INITIAL_CAPACITY);
@@ -73,7 +75,10 @@ public class ArrayQueue<T> implements QueueInterface<T> {
       backIndex = queue.length - 1;
    }
 
-
+   /**
+    * Considering line below to be applicable for all the assignment functions.
+    * You must use methods from QueueInterface.java and ArrayQueue.java. Do not use stacks or recursion.
+    * */
    public static boolean check(String s) {
       int halfS = s.length() / 2;
       String lowerCaseS = s.toLowerCase();
@@ -119,19 +124,63 @@ public class ArrayQueue<T> implements QueueInterface<T> {
       this.enqueue(anotherQueue.dequeue());
    }
 
+/**
+ * Below function may fails if the existing queue has duplicate values
+ * The function below only uses the functions provide in QueueInterface and ArrayQueue
+ * */
+
    public boolean enqueueNoDuplicate(T item){
-      Boolean flag = true;
-
-
-      for(int i = 0; i < queue.length; i++){
-         if(item.equals(queue[i])){
-            flag = false;
-            break;
-         }
+      T frontItem = getFront();
+      Boolean check = false;
+      if(this.getFront().equals(item)){
+         return false;
       }
-
-      if(flag) this.enqueue(item);
-      return flag;
+      this.enqueue(this.getFront());
+      this.dequeue();
+      while(!this.getFront().equals(frontItem)){
+         if(!this.getFront().equals(item)){
+            check = true;
+         }
+         else {
+            check = false;
+         }
+         this.enqueue(this.getFront());
+         this.dequeue();
+      }
+      if (check){
+         this.enqueue(item);
+      }
+      return check;
    }
 
+/**
+ * Below function won't fails if the existing queue has duplicate values
+ * The function below uses the array in ArrayQueue and frontIndex to iterated through the whole loop
+ * */
+
+//   public boolean enqueueNoDuplicate(T item){
+//      T frontItem = getFront();
+//      int len = queue.length;
+//      Boolean check = false;
+//      if(this.getFront().equals(item)){
+//         return false;
+//      }
+//      this.enqueue(this.getFront());
+//      this.dequeue();
+//      while(frontIndex!=len-1){
+//         if(!this.getFront().equals(item)){
+//            check = true;
+//         }
+//         else {
+//            check = false;
+//         }
+//         this.enqueue(this.getFront());
+//         this.dequeue();
+//      }
+//      if (check){
+//         this.enqueue(item);
+//      }
+//      return check;
+//   }
 } // end ArrayQueue
+
