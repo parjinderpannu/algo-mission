@@ -1,0 +1,40 @@
+***** public static boolean check(String s) *****
+check("booboo") = true
+check("hello, hello") = true
+check("rattan") = false
+check("abcab") = false
+***** End public static boolean check(String s) *****
+
+***** public void splice(QueueInterface<T> anotherQueue) *****
+myQ1.isEmpty() : true
+myQ3.isEmpty() : true
+myQ1.enqueue("Jim");
+myQ1.enqueue("Jess")
+myQ3.enqueue("sam");
+myQ1.isEmpty() : false
+myQ3.isEmpty() : false
+myQ1.splice(myQ3);
+myQ1.isEmpty() : false
+myQ3.isEmpty() : true
+myQ1.dequeue() : Jim
+myQ1.dequeue() : Jess
+myQ1.dequeue() : sam
+myQ1.isEmpty() : true
+***** End public void splice(QueueInterface<T> anotherQueue) *****
+
+***** public boolean enqueueNoDuplicate(T item) *****
+myQ2.enqueue("a");
+myQ2.enqueue("b");
+myQ2.enqueue("c");
+myQ2.enqueue("d");
+myQ2.enqueueNoDuplicate("b") : false
+myQ2.enqueueNoDuplicate("e") : true
+myQ2.dequeue() : a
+myQ2.dequeue() : b
+myQ2.dequeue() : c
+myQ2.dequeue() : d
+myQ2.dequeue() : e
+myQ2.isEmpty() : true
+***** End public boolean enqueueNoDuplicate(T item) *****
+
+Process finished with exit code 0
